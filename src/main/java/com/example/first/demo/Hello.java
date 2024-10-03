@@ -12,7 +12,4 @@ public class Hello {
       return "Hello World";
   }
 
-
-  
-
 }
