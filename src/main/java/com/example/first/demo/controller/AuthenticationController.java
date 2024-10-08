@@ -1,5 +1,6 @@
 package com.example.first.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,14 +17,12 @@ import com.example.first.demo.utils.LoginReponse;
 @RequestMapping("/auth")
 @RestController
 public class AuthenticationController {
-  private final JwtService jwtService;
-    
-    private final AuthenticationService authenticationService;
 
-    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
-        this.jwtService = jwtService;
-        this.authenticationService = authenticationService;
-    }
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @PostMapping("/signup")
     public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
@@ -38,7 +37,9 @@ public class AuthenticationController {
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
-        LoginReponse loginResponse = new LoginReponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
+        LoginReponse loginResponse = new LoginReponse();
+        loginResponse.setToken(jwtToken);
+        loginResponse.setExpiresIn(jwtService.getExpirationTime());
 
         return ResponseEntity.ok(loginResponse);
     }

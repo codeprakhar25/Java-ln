@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.example.first.demo.model.User;
 import com.example.first.demo.repository.SearchRepository;
-import com.example.first.demo.repository.UserRepository;
+import com.example.first.demo.repository.UserRepositoryNorm;
 
 @Service
 public class UserService {
 
     @Autowired
-    private UserRepository repository;
+    private UserRepositoryNorm repository;
 
     @Autowired
     private SearchRepository searchRepository;
